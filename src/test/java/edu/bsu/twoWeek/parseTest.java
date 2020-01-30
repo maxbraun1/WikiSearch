@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 
 public class parseTest {
 
@@ -31,5 +31,14 @@ public class parseTest {
             System.out.println("Timestamp:" + array.get(i).getAsJsonObject().get("timestamp").getAsString());
         }
         //Assertions.assertEquals(4, array[1]);
+    }
+
+    @Test
+    public void testParse() throws IOException {
+        WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
+        InputStream in = urlBuilder.buildURL("obama");
+
+        RevisionParser revisionParser = new RevisionParser();
+        revisionParser.parse(in);
     }
 }
