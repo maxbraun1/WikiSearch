@@ -1,8 +1,23 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
-group 'org.example'
+application {
+    mainClassName = 'edu.bsu.twoWeek.main'
+}
+
+javafx {
+    version = "13"
+    modules = [ 'javafx.controls' ]
+}
+
+test{
+    useJUnitPlatform()
+}
+
+group 'bsu.edu.weekTwo'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -12,5 +27,6 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
 }
