@@ -16,16 +16,23 @@ public class RevisionParser {
         JsonElement element = JsonParser.parseReader(reader);
         JsonObject object = element.getAsJsonObject();
         JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
-        JsonArray array = null;
+        JsonArray revisions = null;
 
         for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            array = entryObject.getAsJsonArray("revisions");
+            revisions = entryObject.getAsJsonArray("revisions");
 
         }
-        for(int i = 0; i < array.size(); i++){
-            System.out.println("Name:" + array.get(i).getAsJsonObject().get("user").getAsString());
-            System.out.println("Timestamp:" + array.get(i).getAsJsonObject().get("timestamp").getAsString());
+
+        System.out.println(revisions.size() + " revisions returned.");
+
+        for(int i = 0; i < revisions.size(); i++){
+            JsonObject revision = revisions.get(i).getAsJsonObject();
+            String username = revision.get("user").getAsString();
+            String timestamp = revision.get("timestamp").getAsString();
+            System.out.println("Revision #"+(i+1)+": "+username+" - "+timestamp);
+            //System.out.println("Name:" + revisions.get(i).getAsJsonObject().get("user").getAsString());
+            //System.out.println("Timestamp:" + revisions.get(i).getAsJsonObject().get("timestamp").getAsString());
         }
         return null;
     }
