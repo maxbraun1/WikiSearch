@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static sun.tools.java.Type.tString;
 
@@ -35,39 +36,36 @@ public class RevisionParser {
             }
             JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
             JsonObject pageIDNumberObject = pages.entrySet().iterator().next().getValue().getAsJsonObject();
-            JsonArray revisions = pageIDNumberObject.getAsJsonArray("revisions");
+            JsonArray revisionsArray = pageIDNumberObject.getAsJsonArray("revisions");
 
-            System.out.println(revisions.size() + " revisions returned.");
+            System.out.println(revisionsArray.size() + " revisionsArray returned.");
 
-            Map<String, Integer> user = new HashMap<String, Map<String,Integer>>(); // <username, (timestamp,count)>
+            Map<String, String> revisions = new HashMap<String, String>(); // <username, timestamp>
+            Map<String, Integer> count = new HashMap<String,Integer>(); // <username, revisions>
 
-            for(int i = 0; i < revisions.size(); i++){
-                JsonObject revision = revisions.get(i).getAsJsonObject();
+            for(int i = 0; i < revisionsArray.size(); i++){
+                JsonObject revision = revisionsArray.get(i).getAsJsonObject();
 
                 String username = revision.get("user").getAsString();
                 String timestamp = revision.get("timestamp").getAsString();
 
-                if(user.containsKey(revision.get("user").getAsString())){
-                    Map<String,Integer> info = user.get(username);
-                    System.out.println(info.get(""));
-                    user.put(revision.get("user").getAsString(),count);
+                if(count.containsKey(username)){
+                    Integer number = count.get(username) + 1;
+                    count.put(username,number);
                 }else{
-                    user.put(revision.get("user").getAsString(),1);
-                    userTimestamp.put(revision.get("user").getAsString(),revision.get("timestamp").getAsString())
+                    count.put(username,1);
                 }
 
-                String username = revision.get("user").getAsString();
-                String timestamp = revision.get("timestamp").getAsString();
+                revisions.put(username,timestamp);
                 //System.out.println("Revision #"+(i+1)+": "+username+" - "+timestamp);
             }
-            HashMap<String, Integer> sorted = user.entrySet()
-                    .stream()
-                    .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-            System.out.println(sorted);
+
+            ListSorter sorter = new ListSorter();
+            sorter.sortList(revisions,count);
+
+            //System.out.println(revisions);
         }else{
             System.out.println("It doesn't exists");
         }
     }
-
 }
