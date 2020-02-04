@@ -1,16 +1,17 @@
 package edu.bsu.twoWeek;
 
-
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.*;
+import java.io.Reader;
 
-public class parseTest {
-
+public class LearningTest {
     @Test
     public void testFindJsonInTestResourcesFolder() {
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("soup.json");
@@ -18,7 +19,7 @@ public class parseTest {
     }
 
     @Test
-    public void testParseJsonRvcontinueValue() {
+    public void testParseJsonRevisionsValue() {
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("soup.json");
         assert stream != null;
         Reader reader = new InputStreamReader(stream);
@@ -30,15 +31,5 @@ public class parseTest {
             System.out.println("Name:" + array.get(i).getAsJsonObject().get("user").getAsString());
             System.out.println("Timestamp:" + array.get(i).getAsJsonObject().get("timestamp").getAsString());
         }
-        //Assertions.assertEquals(4, array[1]);
-    }
-
-    @Test
-    public void testParse() throws IOException {
-        WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
-        InputStream in = urlBuilder.buildURL("obama");
-
-        RevisionParser revisionParser = new RevisionParser();
-        revisionParser.parse(in);
     }
 }
