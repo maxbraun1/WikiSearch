@@ -1,18 +1,13 @@
 package edu.bsu.twoWeek;
 
-
-import com.google.gson.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class RevisonParserTest {
-
+public class EditorParserTest {
     @Test
     public void testParse() throws IOException {
         try {
@@ -24,8 +19,8 @@ public class RevisonParserTest {
 
             WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
             InputStream in = urlBuilder.buildURL("soup");
-            RevisionParser revisionParser = new RevisionParser();
-            revisionParser.parseRevisions(in);
+            EditorParser editorParser = new EditorParser();
+            editorParser.parseEditors(in);
         }
         catch (Exception e) {
             System.out.println("Internet Not Connected");
