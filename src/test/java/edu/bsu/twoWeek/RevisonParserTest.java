@@ -19,8 +19,8 @@ public class RevisonParserTest {
 
             System.out.println("Connection Successful");
 
-            WikiConnectionCreator urlBuilder = new WikiConnectionCreator();
-            InputStream in = urlBuilder.buildURL("soup");
+            WikiConnectionCreator creator = new WikiConnectionCreator();
+            InputStream in = creator.createConnection("soup");
             RevisionParser revisionParser = new RevisionParser();
             revisionParser.parseRevisions(in);
         }

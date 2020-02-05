@@ -11,4 +11,11 @@ public class Revision {
         this.username = username;
         this.timestamp = timestamp;
     }
+    @Override
+    public String toString(){
+        return "Revision{"+
+                "username=" + username +
+                "timestamp=" + timestamp+
+                '}';
+    }
 }

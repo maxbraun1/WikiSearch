@@ -16,11 +16,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static sun.tools.java.Type.tString;
 
 public class RevisionParser {
 
-    public void parseRevisions(InputStream stream){
+    public List<Revision> parseRevisions(InputStream stream){
+        List<Revision> revisions = new ArrayList<>();
         Reader reader = new InputStreamReader(stream);
         JsonElement element = JsonParser.parseReader(reader);
         JsonObject object = element.getAsJsonObject();
@@ -41,10 +41,12 @@ public class RevisionParser {
                 JsonObject revision = revisionsArray.get(i).getAsJsonObject();
                 String username = revision.get("user").getAsString();
                 Instant timestamp = Instant.parse(revision.get("timestamp").getAsString());
-                System.out.println("Revision #"+(i+1)+": "+username+" - "+timestamp);
+                revisions.add(new Revision(username,timestamp));
             }
+            return revisions;
         }else{
             System.out.println("It doesn't exist");
         }
+        return null;
     }
 }

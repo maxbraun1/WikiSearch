@@ -1,15 +1,16 @@
 package edu.bsu.twoWeek;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class WikiConnectionCreatorTest {
     @Test
-    public void TestBuildUrl() throws IOException {
+    public void TestCreateConnection() throws Exception {
         String term = "soup";
-        // Create class based on results requested (Revisions List/Editors List)
-        WikiConnectionCreator urlBuilder = new WikiConnectionCreator();
-        urlBuilder.buildURL(term);
+        WikiConnectionCreator creator = new WikiConnectionCreator();
+        InputStream actual = creator.createConnection(term);
     }
 }
