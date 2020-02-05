@@ -17,8 +17,8 @@ public class EditorParserTest {
 
             System.out.println("Connection Successful");
 
-            WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
-            InputStream in = urlBuilder.buildURL("justLookingForTheMoment");
+            WikiConnectionCreator urlBuilder = new WikiConnectionCreator();
+            InputStream in = urlBuilder.buildURL("soup");
             EditorParser editorParser = new EditorParser();
             editorParser.parseEditors(in);
         }

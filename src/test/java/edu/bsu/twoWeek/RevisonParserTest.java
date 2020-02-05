@@ -1,12 +1,9 @@
 package edu.bsu.twoWeek;
 
 
-import com.google.gson.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -22,7 +19,7 @@ public class RevisonParserTest {
 
             System.out.println("Connection Successful");
 
-            WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
+            WikiConnectionCreator urlBuilder = new WikiConnectionCreator();
             InputStream in = urlBuilder.buildURL("soup");
             RevisionParser revisionParser = new RevisionParser();
             revisionParser.parseRevisions(in);

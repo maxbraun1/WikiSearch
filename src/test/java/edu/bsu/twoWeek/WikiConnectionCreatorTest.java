@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class WikiUrlBuilderTest {
+public class WikiConnectionCreatorTest {
     @Test
     public void TestBuildUrl() throws IOException {
         String term = "soup";
         // Create class based on results requested (Revisions List/Editors List)
-        WikiUrlBuilder urlBuilder = new WikiUrlBuilder();
+        WikiConnectionCreator urlBuilder = new WikiConnectionCreator();
         urlBuilder.buildURL(term);
     }
 }

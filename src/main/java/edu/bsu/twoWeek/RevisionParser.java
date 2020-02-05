@@ -37,38 +37,12 @@ public class RevisionParser {
             JsonArray revisionsArray = pageIDNumberObject.getAsJsonArray("revisions");
 
             System.out.println(revisionsArray.size() + " revisionsArray returned.");
-
-            Map<String, Instant> revisions = new LinkedHashMap<String, Instant>(); // <username, timestamp>
-            Map<String, Integer> editors = new LinkedHashMap<String,Integer>(); // <username, revisions>
-
-            ArrayList<Revision> revisionList = new ArrayList<Revision>();
             for(int i = 0; i < revisionsArray.size(); i++){
                 JsonObject revision = revisionsArray.get(i).getAsJsonObject();
                 String username = revision.get("user").getAsString();
                 Instant timestamp = Instant.parse(revision.get("timestamp").getAsString());
-
-                revisions.put(username,timestamp);
-
-                System.out.println(revisions);
-
-                revisionList.add(new Revision(username, timestamp));
-
-                if(editors.containsKey(username)){
-                    Integer number = editors.get(username) + 1;
-                    editors.put(username,number);
-                }else{
-                    editors.put(username,1);
-                }
-                //revisions.put(username,timestamp);
-                //System.out.println("Revision #"+(i+1)+": "+username+" - "+timestamp);
+                System.out.println("Revision #"+(i+1)+": "+username+" - "+timestamp);
             }
-
-            //Collections.sort(ar);
-            ListSorter sorter = new ListSorter();
-            System.out.println(revisions);
-            sorter.sortList(revisions,editors);
-
-            //System.out.println(revisions);
         }else{
             System.out.println("It doesn't exist");
         }
