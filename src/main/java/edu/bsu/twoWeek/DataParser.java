@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import javafx.scene.control.Alert;
+
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,8 +21,7 @@ public class DataParser {
             checker.checkForRedirects(query);
             JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
             JsonObject pageIDNumberObject = pages.entrySet().iterator().next().getValue().getAsJsonObject();
-            JsonArray revisionsArray = pageIDNumberObject.getAsJsonArray("revisions");
-            return revisionsArray;
+            return pageIDNumberObject.getAsJsonArray("revisions");
         }else{
             return null;
         }

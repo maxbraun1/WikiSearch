@@ -5,17 +5,11 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.io.InputStream;
-import java.util.List;
 
 public class App extends Application {
     public static void main(String[] args) { launch(args);}
@@ -84,8 +78,8 @@ public class App extends Application {
                     outputField.setText("");
                 }else{
                     // Parse data to revisions
-                    EditorParser editorParser = new EditorParser();
-                    String result = editorParser.parseEditors(revisions);
+                    EditorSorter editorSorter = new EditorSorter();
+                    String result = editorSorter.sortEditors(revisions);
 
                     // Show results
                     outputField.setText(result);
@@ -93,7 +87,12 @@ public class App extends Application {
 
 
             }catch(Exception e){
-
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Alert");
+                alert.setHeaderText("Internet not connected");
+                alert.setContentText("Term: " + termField.getText());
+                alert.setResizable(true);
+                alert.showAndWait();
             }
         });
         revisionButton.setOnAction(event -> {
@@ -117,8 +116,8 @@ public class App extends Application {
                     outputField.setText("");
                 }else{
                     // Parse data to revisions
-                    RevisionParser revisionParser = new RevisionParser();
-                    String result = revisionParser.parseRevisions(revisions);
+                    RevisionPrinter revisionPrinter = new RevisionPrinter();
+                    String result = revisionPrinter.printRevisions(revisions);
 
                     // Show results
                     outputField.setText(result);
@@ -127,19 +126,19 @@ public class App extends Application {
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
-                alert.setHeaderText("Cannot open resource");
+                alert.setHeaderText("Internet not connected");
                 alert.setContentText("Term: " + termField.getText());
                 alert.setResizable(true);
                 alert.showAndWait();
             }
         });
 
-        grid.setConstraints(logo,0,0,2,1);
-        grid.setConstraints(credits,0,1,2,1);
-        grid.setConstraints(revisionButton,0,2);
-        grid.setConstraints(editorsButton,1,2);
-        grid.setConstraints(termField,0,3,2,1);
-        grid.setConstraints(outputField,0,4,2,3);
+        GridPane.setConstraints(logo,0,0,2,1);
+        GridPane.setConstraints(credits,0,1,2,1);
+        GridPane.setConstraints(revisionButton,0,2);
+        GridPane.setConstraints(editorsButton,1,2);
+        GridPane.setConstraints(termField,0,3,2,1);
+        GridPane.setConstraints(outputField,0,4,2,3);
         grid.getChildren().addAll(logo,credits,revisionButton,editorsButton,termField,outputField);
 
 
