@@ -15,19 +15,10 @@ public class DataParser {
         Reader reader = new InputStreamReader(stream);
         JsonElement element = JsonParser.parseReader(reader);
         JsonObject object = element.getAsJsonObject();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
         if(!object.has("batchcomplete")) {
+            RedirectChecker checker = new RedirectChecker();
             JsonObject query = object.getAsJsonObject("query");
-            if (query.has("redirects")) {
-                JsonArray array = query.getAsJsonArray("redirects");
-                String to = array.get(array.size() - 1).getAsJsonObject().get("to").getAsString();
-                String from = array.get(0).getAsJsonObject().get("from").getAsString();
-                alert.setTitle("Alert");
-                alert.setHeaderText("You have been redirected");
-                alert.setContentText("You were redirected from: " + from + " to " + to);
-                alert.setResizable(false);
-                alert.showAndWait();
-            }
+            checker.checkForRedirects(query);
             JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
             JsonObject pageIDNumberObject = pages.entrySet().iterator().next().getValue().getAsJsonObject();
             JsonArray revisionsArray = pageIDNumberObject.getAsJsonArray("revisions");

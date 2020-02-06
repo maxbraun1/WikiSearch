@@ -17,12 +17,12 @@ class Editor {
 
 class sortByEditsThenTimestamp implements Comparator<Editor> {
     public int compare(Editor a, Editor b) {
-        int sComp = a.edits + b.edits;
+        int sComp = a.edits - b.edits;
 
-        if(sComp != 0){
+        if(sComp == 0){
             return sComp;
+        }else{
+            return a.timestamp.compareTo(b.timestamp);
         }
-
-        return a.timestamp.compareTo(b.timestamp);
     }
 }
