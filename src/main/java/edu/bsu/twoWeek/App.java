@@ -55,6 +55,8 @@ public class App extends Application {
         editorsButton.setMinWidth(150);
         editorsButton.setMaxHeight(30);
         editorsButton.setMinHeight(30);
+
+
         editorsButton.setOnAction(event -> {
             String term = termField.getText();
             try{
