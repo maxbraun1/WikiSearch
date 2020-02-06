@@ -19,22 +19,18 @@ import java.util.stream.Stream;
 
 public class RevisionParser {
 
-    public List<Revision> parseRevisions(InputStream stream){
-        List<Revision> revisions = new ArrayList<>();
-        Reader reader = new InputStreamReader(stream);
-        JsonElement element = JsonParser.parseReader(reader);
-        JsonObject object = element.getAsJsonObject();
-        if(!object.has("batchcomplete")){
-            JsonObject query = object.getAsJsonObject("query");
-            if(query.has("redirects")){
-                JsonArray array = query.getAsJsonArray("redirects");
-                String to = array.get(array.size()-1).getAsJsonObject().get("to").getAsString();
-                String from = array.get(0).getAsJsonObject().get("from").getAsString();
-                System.out.println("You were redirected from: "+from+" to "+to);
-            }
-            JsonObject pages = object.getAsJsonObject("query").getAsJsonObject("pages");
-            JsonObject pageIDNumberObject = pages.entrySet().iterator().next().getValue().getAsJsonObject();
-            JsonArray revisionsArray = pageIDNumberObject.getAsJsonArray("revisions");
+    public String parseRevisions(JsonArray revisionsArray){
+        String output = "-- "+revisionsArray.size()+" revisions returned --\n";
+        for(int i = 0; i < revisionsArray.size(); i++) {
+            JsonObject revision = revisionsArray.get(i).getAsJsonObject();
+            String username = revision.get("user").getAsString();
+            Instant timestamp = Instant.parse(revision.get("timestamp").getAsString());
+            output += String.format("%-30s - %s\n", username, timestamp);
+        }
+
+        return output;
+
+        /*
 
             System.out.println(revisionsArray.size() + " revisionsArray returned.");
             for(int i = 0; i < revisionsArray.size(); i++){
@@ -47,6 +43,7 @@ public class RevisionParser {
         }else{
             System.out.println("It doesn't exist");
         }
-        return null;
+
+         */
     }
 }

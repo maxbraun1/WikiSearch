@@ -12,5 +12,4 @@ public class WikiConnectionCreator {
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (http://www.cs.bsu.edu/~pvg/courses/cs222Fa20; msbraun@bsu.edu)");
         return connection.getInputStream();
     }
-
 }
