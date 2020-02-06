@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RevisionsMapBuilder {
     public Map<String,Instant> buildRevisionsMap(JsonArray revisionsArray){
-        Map<String, Instant> revisions = new LinkedHashMap<String, Instant>(); // <username, timestamp>
+        Map<String, Instant> revisions = new LinkedHashMap<>(); // <username, timestamp>
         for(int i = 0; i < revisionsArray.size(); i++){
             JsonObject revision = revisionsArray.get(i).getAsJsonObject();
             String username = revision.get("user").getAsString();

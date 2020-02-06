@@ -13,7 +13,6 @@ public class InternetTester {
             connection = "Connection Successful";
         } catch (Exception e) {
             connection = "Internet Not Connected";
-            System.out.println("Internet Not Connected");
         }
         return (connection.equals("Connection Successful"));
 
