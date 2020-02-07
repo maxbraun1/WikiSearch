@@ -80,7 +80,7 @@ public class App extends Application {
             }catch(Exception e){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
-                alert.setHeaderText("Internet not connected");
+                alert.setHeaderText("Internet not connected or cannot open resource");
                 alert.setContentText("Term: " + termField.getText());
                 alert.setResizable(true);
                 alert.showAndWait();
@@ -116,7 +116,7 @@ public class App extends Application {
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Alert");
-                alert.setHeaderText("Internet not connected");
+                alert.setHeaderText("Internet not connected or cannot open resource");
                 alert.setContentText("Term: " + termField.getText());
                 alert.setResizable(true);
                 alert.showAndWait();
