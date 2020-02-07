@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class EditorsMapBuilder {
     public Map<String,Integer> buildEditorsMap(JsonArray revisionsArray){
-        Map<String, Integer> editors = new LinkedHashMap<>(); // <username, revisions>
+        Map<String, Integer> editors = new LinkedHashMap<>();
         for(int i = 0; i < revisionsArray.size(); i++){
             JsonObject revision = revisionsArray.get(i).getAsJsonObject();
             String username = revision.get("user").getAsString();

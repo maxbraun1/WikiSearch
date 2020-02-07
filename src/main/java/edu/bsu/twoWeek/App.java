@@ -16,61 +16,52 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        // Grid Pane
+
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20,20,20,20));
         grid.setVgap(10);
         grid.setHgap(10);
 
-        // Logo Label
         Label logo = new Label("WikiSearch");
         logo.setFont(new Font("Arial Black", 30));
         logo.maxHeight(50);
         logo.minHeight(50);
 
-        // Term Input
         TextField termField = new TextField();
         termField.setMaxHeight(30);
         termField.setMinHeight(30);
 
-        // Table
         TextArea outputField = new TextArea();
         outputField.setMinHeight(300);
         outputField.setMaxHeight(300);
         outputField.setEditable(false);
 
-        // Credits Label
         Label credits = new Label("By Max Braun & Curtis Clemmons");
         credits.setMaxHeight(30);
         credits.setMinHeight(30);
 
-        // Revisions Button
         Button revisionButton = new Button("Latest Revisions");
         revisionButton.setMinWidth(150);
         revisionButton.setMaxHeight(30);
         revisionButton.setMinHeight(30);
 
-        // Editors Button
         Button editorsButton = new Button("Recent Top Editors");
         editorsButton.setMinWidth(150);
         editorsButton.setMaxHeight(30);
         editorsButton.setMinHeight(30);
 
-
         editorsButton.setOnAction(event -> {
             String term = termField.getText();
             try{
-                // Create Connection
+
                 WikiConnectionCreator creator = new WikiConnectionCreator();
                 InputStream stream = creator.createConnection(term);
 
-                // Get main data
                 DataParser parser = new DataParser();
                 JsonArray revisions = parser.parseData(stream);
 
                 if(revisions == null){
-                    // Page does not exist
-                    // Page does not exist
+
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Page Does Not Exist");
@@ -79,11 +70,9 @@ public class App extends Application {
                     alert.showAndWait();
                     outputField.setText("");
                 }else{
-                    // Parse data to revisions
                     EditorSorter editorSorter = new EditorSorter();
                     String result = editorSorter.sortEditors(revisions);
 
-                    // Show results
                     outputField.setText(result);
                 }
 
@@ -97,18 +86,18 @@ public class App extends Application {
                 alert.showAndWait();
             }
         });
+
         revisionButton.setOnAction(event -> {
             try {
                 String term = termField.getText();
-                // Create Connection
+
                 WikiConnectionCreator creator = new WikiConnectionCreator();
                 InputStream stream = creator.createConnection(term);
 
-                // Get main data
                 DataParser parser = new DataParser();
                 JsonArray revisions = parser.parseData(stream);
                 if(revisions == null){
-                    // Page does not exist
+
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Alert");
                     alert.setHeaderText("Page Does Not Exist");
@@ -117,11 +106,10 @@ public class App extends Application {
                     alert.showAndWait();
                     outputField.setText("");
                 }else{
-                    // Parse data to revisions
+
                     RevisionPrinter revisionPrinter = new RevisionPrinter();
                     String result = revisionPrinter.printRevisions(revisions);
 
-                    // Show results
                     outputField.setText(result);
                 }
 
